@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CharacterStateMachine : MonoBehaviour, IDamageable
 {
-    [SerializeField] private PlayerStateBase currentState;
     public Animator animator;
-    public string stateName;
 
     [Header("Player Stats")]
     public List<Damage> damages = new List<Damage>();

@@ -20,7 +20,7 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""95f57b1b-2596-4972-ad3c-edfeca33a6b2"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",

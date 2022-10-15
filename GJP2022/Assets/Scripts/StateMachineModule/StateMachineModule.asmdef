@@ -1,9 +1,8 @@
 {
-    "name": "MovementModule",
+    "name": "StateMachineModule",
     "rootNamespace": "",
     "references": [
-        "GUID:d674423e7b5f8ad4b995a3a249694100",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:f4dc8e3ce1559e04b97b90238d7d3b33"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

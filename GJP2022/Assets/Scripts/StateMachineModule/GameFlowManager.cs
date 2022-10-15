@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class GameStateMachine : MonoBehaviour
+public class GameFlowManager : MonoBehaviour
 {
-    public static GameStateMachine Singleton;
+    public static GameFlowManager Singleton;
     public event Action<LevelStage> OnGameStateChanged;
 
     public LevelStage LevelStage = LevelStage.setup;
 
-    [Header("GameContext")]
-    public Transform UI;
-    public PlayerStateMachine player;
     private void Awake()
     {
         if (Singleton == null)
