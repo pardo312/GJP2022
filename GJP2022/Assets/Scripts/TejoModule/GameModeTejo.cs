@@ -34,7 +34,7 @@ public class GameModeTejo : MonoBehaviour
 
     IEnumerator GameFlow()
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         TejoCamera.Priority = 9;
         GameCamera.Priority = 10;
         yield return new WaitForSeconds(2);
