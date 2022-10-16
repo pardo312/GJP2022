@@ -17,6 +17,9 @@ public class PlayerStateMachine : CharacterStateMachine
     [SerializeField] private float jumpSpeed = 5;
     [SerializeField] private float fallSpeed = 1;
     private GJP2022InputActions playerInput;
+
+    [Header("Attack")]
+    [SerializeField] private float cooldown = 2;
     #endregion ---Fields---
 
     public void SetState(PlayerStateBase state)
@@ -58,7 +61,7 @@ public class PlayerStateMachine : CharacterStateMachine
     {
         if (stage == LevelStage.gameMode)
         {
-            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed, characterResources));
+            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed, characterResources,cooldown ));
         }
         if (stage == LevelStage.inbetween)
         {

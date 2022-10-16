@@ -47,8 +47,10 @@ public class RangeEnemySearchState : EnemyStateBase
         {
             // --this could be in other state--
             Collider[] damageablePlayer = Physics.OverlapSphere(enemy.transform.position, 18, LayerMask.GetMask("Player"));
+            seeker.CancelCurrentPathRequest();
             if (damageablePlayer.Length > 0)
             {
+                aiPath.canMove = false;
                 timerBetweenAttacks -= Time.deltaTime;
                 if (timerBetweenAttacks < 0)
                 {
@@ -59,9 +61,8 @@ public class RangeEnemySearchState : EnemyStateBase
             //-- --
             else
             {
-                timerBetweenAttacks = 0;
                 searchingPlayer = true;
-                seeker.CancelCurrentPathRequest();
+                aiPath.canMove = true;
                 currentPath = seeker.StartPath(enemy.transform.position, player[0].transform.position);
             }
         }

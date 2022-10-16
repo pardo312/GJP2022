@@ -21,6 +21,7 @@ public class MovementState : PlayerStateBase
     bool jumping = false;
     private CharacterResources characterResources;
     bool previousAttackWasStrong = false;
+    private float cooldownAttack;
     #endregion ---Fields---
 
     #region ---Mehtods---
@@ -33,6 +34,7 @@ public class MovementState : PlayerStateBase
         jumpSpeed = (float)parameters[2];
         fallSpeed = (float)parameters[3];
         characterResources = parameters[4] as CharacterResources;
+        cooldownAttack = (float)parameters[5];
 
         verticalHash = Animator.StringToHash("isMoving");
         lightAttackHash = Animator.StringToHash("lightAttack");
@@ -49,10 +51,12 @@ public class MovementState : PlayerStateBase
             LowHighJumpVerification();
         }
 
+        AttackQueue();
         ComboCounterTick();
         if (IsGrounded())
             jumpState = 0;
     }
+
 
     #region Move Inputs
     public override void Move(CallbackContext ctx)
@@ -66,6 +70,7 @@ public class MovementState : PlayerStateBase
         {
             if (jumpState < 2)
             {
+                player.animator.SetTrigger("Jump");
                 jumping = true;
                 playerRb.velocity = new Vector3(playerRb.velocity.x, jumpSpeed, playerRb.velocity.z);
                 jumpState++;
@@ -83,6 +88,7 @@ public class MovementState : PlayerStateBase
         float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
         playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
         playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
+        player.animator.SetFloat("velocity", direction.magnitude);
     }
 
     private void RotateModel()
@@ -113,7 +119,32 @@ public class MovementState : PlayerStateBase
 
 
     #region Attack Inputs
+    private float timerAttackCooldown;
     public override void Attack(bool isStrongAttack)
+    {
+        if (queueAttacks.Count < 3 && !comboGrabbed)
+            queueAttacks.Enqueue(isStrongAttack);
+        if (queueAttacks.Count == 3)
+            comboGrabbed = true;
+    }
+
+    public Queue<bool> queueAttacks = new Queue<bool>();
+    public bool comboGrabbed = false;
+    public void AttackQueue()
+    {
+        if (timerAttackCooldown > 0)
+            timerAttackCooldown -= Time.deltaTime;
+
+        if (timerAttackCooldown <= 0)
+        {
+            timerAttackCooldown = cooldownAttack;
+            ExecuteAttack(queueAttacks.Dequeue());
+            if (queueAttacks.Count == 0 && comboGrabbed)
+                comboGrabbed = false;
+        }
+    }
+
+    public void ExecuteAttack(bool isStrongAttack)
     {
         AttackAnimations(isStrongAttack);
         characterResources.comboCounter++;
@@ -122,7 +153,7 @@ public class MovementState : PlayerStateBase
 
     private void DamageEnemy(bool isStrongAttack)
     {
-        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Enemy"));
+        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 2f), player.transform.localScale * 4, Quaternion.identity, LayerMask.GetMask("Enemy"));
         if (attackRange.Length <= 0)
             return;
 
@@ -162,8 +193,8 @@ public class MovementState : PlayerStateBase
     private void AttackAnimations(bool isStrongAttack)
     {
         int attackAnim = (characterResources.comboCounter % 3) + 1;
-        if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
-            player.animator.SetTrigger("Attacking");
+        //if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
+        player.animator.SetTrigger("Attacking");
 
         if (previousAttackWasStrong != isStrongAttack)
         {
