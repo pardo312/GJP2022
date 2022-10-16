@@ -15,9 +15,9 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   activateAudioTrack: 1
   audioObjects:
-  - key: SFX_HIT1
+  - key: SFX_HIT_1
     audioClip: {fileID: 8300000, guid: ee5adfe1b6fc1d24a916a1e580e00265, type: 3}
-  - key: SFX_HIT2
+  - key: SFX_HIT_2
     audioClip: {fileID: 8300000, guid: 986a6d7f399a50c4a93a90461255681b, type: 3}
   - key: SFX_JUMP
     audioClip: {fileID: 8300000, guid: 48dec5d9eae3bf043b528e61bb1a1711, type: 3}
