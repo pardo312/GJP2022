@@ -14,7 +14,7 @@ public abstract class PlayerStateBase
     }
 
     public abstract void UpdateState();
-    public abstract void Attack(CallbackContext ctx);
+    public abstract void Attack(bool isStrongAttack);
     public abstract void Move(CallbackContext ctx);
     public abstract void Jump(CallbackContext ctx);
 }

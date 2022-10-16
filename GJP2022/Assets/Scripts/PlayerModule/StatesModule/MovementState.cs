@@ -8,6 +8,8 @@ public class MovementState : PlayerStateBase
     #region ---Fields---
     private int verticalHash;
     private int horizontalHash;
+    private int lightAttackHash;
+    private int strongAttackHash;
 
     private Rigidbody playerRb;
     private float movementSpeed;
@@ -17,6 +19,7 @@ public class MovementState : PlayerStateBase
     private float jumpSpeed;
     private float fallSpeed;
     bool jumping = false;
+    private CharacterResources characterResources;
     #endregion ---Fields---
 
     #region ---Mehtods---
@@ -28,19 +31,25 @@ public class MovementState : PlayerStateBase
         movementSpeed = (float)parameters[1];
         jumpSpeed = (float)parameters[2];
         fallSpeed = (float)parameters[3];
+        characterResources = parameters[4] as CharacterResources;
 
         verticalHash = Animator.StringToHash("isMoving");
+        lightAttackHash = Animator.StringToHash("lightAttack");
+        strongAttackHash = Animator.StringToHash("strongAttack");
         horizontalHash = Animator.StringToHash("isRotating");
     }
 
-    public override void Attack(CallbackContext ctx)
+    public override void Attack(bool isStrongAttack)
     {
         Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Player"));
         if (attackRange.Length <= 0)
             return;
 
         IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
-        enemy.AddDamage(new NormalDamage() { amount = 10, target = enemy });
+        enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 20 : 10, target = enemy });
+        characterResources.comboCounter++;
+
+        player.animator.SetInteger(isStrongAttack ? strongAttackHash : lightAttackHash, characterResources.comboCounter);
     }
 
     public override void Move(CallbackContext ctx)
@@ -63,6 +72,7 @@ public class MovementState : PlayerStateBase
             jumping = false;
     }
 
+    private float timerToStopCombo;
     public override void UpdateState()
     {
         if (playerRb)
@@ -75,8 +85,21 @@ public class MovementState : PlayerStateBase
                 playerRb.velocity += Vector3.up * Physics.gravity.y * (2.5f) * Time.fixedDeltaTime;
             else
                 playerRb.velocity += Vector3.up * Physics.gravity.y * (1) * Time.fixedDeltaTime;
+
+            if (playerRb.velocity != Vector3.zero)
+            {
+                Transform modelTransform = playerRb.transform.GetChild(0);
+                modelTransform.rotation = Quaternion.LookRotation(playerRb.position + (playerRb.velocity * 10), Vector3.up);
+                //modelTransform.LookAt(playerRb.position + playerRb.velocity);
+            }
         }
 
+        if (characterResources.comboCounter > 0)
+        {
+            timerToStopCombo -= Time.deltaTime;
+            if (timerToStopCombo <= 0)
+                characterResources.comboCounter = 0;
+        }
         if (IsGrounded())
             jumpState = 0;
     }

@@ -41,6 +41,14 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack2"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb6767f8-dc12-4d70-a6b9-61331d8d2cfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Attack1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c419a7e5-19cd-46d1-82e6-bf2664e586d2"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -131,6 +150,7 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_Attack1 = m_PlayerMovement.FindAction("Attack1", throwIfNotFound: true);
+        m_PlayerMovement_Attack2 = m_PlayerMovement.FindAction("Attack2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,6 +203,7 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_Move;
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_Attack1;
+    private readonly InputAction m_PlayerMovement_Attack2;
     public struct PlayerMovementActions
     {
         private @GJP2022InputActions m_Wrapper;
@@ -190,6 +211,7 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @Attack1 => m_Wrapper.m_PlayerMovement_Attack1;
+        public InputAction @Attack2 => m_Wrapper.m_PlayerMovement_Attack2;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -208,6 +230,9 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
                 @Attack1.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack1;
                 @Attack1.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack1;
                 @Attack1.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack1;
+                @Attack2.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack2;
+                @Attack2.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack2;
+                @Attack2.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack2;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -221,6 +246,9 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
                 @Attack1.started += instance.OnAttack1;
                 @Attack1.performed += instance.OnAttack1;
                 @Attack1.canceled += instance.OnAttack1;
+                @Attack2.started += instance.OnAttack2;
+                @Attack2.performed += instance.OnAttack2;
+                @Attack2.canceled += instance.OnAttack2;
             }
         }
     }
@@ -230,5 +258,6 @@ public class @GJP2022InputActions : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack2(InputAction.CallbackContext context);
     }
 }

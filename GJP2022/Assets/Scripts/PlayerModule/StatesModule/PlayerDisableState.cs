@@ -23,7 +23,7 @@ public class PlayerDisableState : PlayerStateBase
     {
     }
 
-    public override void Attack(CallbackContext ctx)
+    public override void Attack(bool isStrongAttack)
     {
     }
 }

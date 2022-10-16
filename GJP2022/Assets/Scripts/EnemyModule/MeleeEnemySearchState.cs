@@ -36,7 +36,7 @@ public class MeleeEnemySearchState : EnemyStateBase
     }
 
     bool searchingPlayer = false;
-    float timerBetweenAttacks = 5;
+    float timerBetweenAttacks ;
     public override void UpdateState()
     {
         if (currentPath == null)
