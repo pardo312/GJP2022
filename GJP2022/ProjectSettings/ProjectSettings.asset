@@ -599,7 +599,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: TERRAINPACKAGE_EXIST;CREST_OCEAN
+    1: TERRAINPACKAGE_EXIST;CREST_OCEAN;USE_AURORA
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
