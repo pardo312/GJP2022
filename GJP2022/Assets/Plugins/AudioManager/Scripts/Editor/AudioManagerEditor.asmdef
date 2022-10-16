@@ -1,0 +1,19 @@
+{
+    "name": "AudioManagerEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bca18f288ee82654bb2613b90eae7bd1"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "PS5"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

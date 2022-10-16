@@ -1,7 +1,10 @@
+using Jiufen.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerStateMachine : CharacterStateMachine
@@ -20,6 +23,10 @@ public class PlayerStateMachine : CharacterStateMachine
 
     [Header("Attack")]
     [SerializeField] private float cooldown = 2;
+
+    [Header("Damage")]
+    [SerializeField] private GameObject postProcessGO;
+    Vignette vignette;
     #endregion ---Fields---
 
     public void SetState(PlayerStateBase state)
@@ -50,6 +57,10 @@ public class PlayerStateMachine : CharacterStateMachine
         playerInput.PlayerMovement.Move.performed += currentState.Move;
         playerInput.PlayerMovement.Move.canceled += currentState.Move;
         playerInput.PlayerMovement.Move.Enable();
+
+        VolumeProfile volumeProfile = postProcessGO.GetComponent<Volume>()?.profile;
+        if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
+        if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
     }
 
     private void FixedUpdate()
@@ -61,7 +72,7 @@ public class PlayerStateMachine : CharacterStateMachine
     {
         if (stage == LevelStage.gameMode)
         {
-            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed, characterResources,cooldown ));
+            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed, characterResources, cooldown));
         }
         if (stage == LevelStage.inbetween)
         {
@@ -76,8 +87,16 @@ public class PlayerStateMachine : CharacterStateMachine
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
+        AudioManager.PlayAudio("SFX_HIT_1");
+        animator.SetTrigger("Damage");
+        vignette.color.Override(Color.red);
+        vignette.intensity.Override(1 - (characterResources.health / 100));
+
         if (characterResources.health <= 0)
+        {
+            animator.SetTrigger("Death");
             SetState(new PlayerDisableState(this));
+        }
     }
 
     public override void AddDamage(Damage damageTaken)

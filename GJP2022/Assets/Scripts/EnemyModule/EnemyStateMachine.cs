@@ -1,3 +1,4 @@
+using Jiufen.Audio;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,6 +53,8 @@ public class EnemyStateMachine : CharacterStateMachine
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
+        AudioManager.PlayAudio("SFX_HIT_2");
+
         if (characterResources.health <= 0)
             SetState(new EnemyDisableState(this));
     }

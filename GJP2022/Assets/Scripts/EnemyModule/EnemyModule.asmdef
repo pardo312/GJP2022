@@ -1,0 +1,21 @@
+{
+    "name": "EnemyModule",
+    "rootNamespace": "",
+    "references": [
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:47d9626987336fb49a98f36e8e671c6b",
+        "GUID:bca18f288ee82654bb2613b90eae7bd1",
+        "GUID:f4dc8e3ce1559e04b97b90238d7d3b33",
+        "GUID:f4059aaf6c60a4a58a177a2609feb769",
+        "GUID:de4e6084e6d474788bb8c799d6b461eb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
