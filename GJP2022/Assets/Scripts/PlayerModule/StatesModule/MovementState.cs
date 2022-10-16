@@ -40,29 +40,21 @@ public class MovementState : PlayerStateBase
         horizontalHash = Animator.StringToHash("isRotating");
     }
 
-    public override void Attack(bool isStrongAttack)
+    public override void UpdateState()
     {
-        int attackAnim = (characterResources.comboCounter % 3) + 1;
-        if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
-            player.animator.SetTrigger("Attacking");
-
-        if (previousAttackWasStrong != isStrongAttack)
+        if (playerRb)
         {
-            previousAttackWasStrong = isStrongAttack;
-            player.animator.SetFloat(isStrongAttack ? lightAttackHash : strongAttackHash, 0);
+            MovePlayer();
+            RotateModel();
+            LowHighJumpVerification();
         }
 
-        player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
-        characterResources.comboCounter++;
-
-        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Enemy"));
-        if (attackRange.Length <= 0)
-            return;
-
-        IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
-        enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 20 : 10, target = enemy });
+        ComboCounterTick();
+        if (IsGrounded())
+            jumpState = 0;
     }
 
+    #region Move Inputs
     public override void Move(CallbackContext ctx)
     {
         direction = ctx.ReadValue<Vector2>();
@@ -82,22 +74,9 @@ public class MovementState : PlayerStateBase
         if (ctx.canceled)
             jumping = false;
     }
+    #endregion Move Inputs
 
-    public override void UpdateState()
-    {
-        if (playerRb)
-        {
-            MovePlayer();
-            RotateModel();
-            LowHighJumpVerification();
-        }
-
-        ComboCounterTick();
-        if (IsGrounded())
-            jumpState = 0;
-    }
-
-    #region Player Movement
+    #region MoveHelpers
     #region Movement
     private void MovePlayer()
     {
@@ -127,9 +106,30 @@ public class MovementState : PlayerStateBase
         return Physics.Raycast(playerRb.transform.position, -Vector3.up, 1);
     }
     #endregion Jump
-    #endregion Player Movement
+    #endregion MoveHelpers
 
-    #region Player Attack
+
+    #region Attack Inputs
+    public override void Attack(bool isStrongAttack)
+    {
+        AttackAnimations(isStrongAttack);
+        characterResources.comboCounter++;
+        DamageEnemy(isStrongAttack);
+    }
+
+
+    private void DamageEnemy(bool isStrongAttack)
+    {
+        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Enemy"));
+        if (attackRange.Length <= 0)
+            return;
+
+        IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
+        enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 20 : 10, target = enemy });
+    }
+    #endregion Attack Inputs
+
+    #region  Attack helpers
     private const float stopComboCooldown = 2;
     private float timerToStopCombo = stopComboCooldown;
     private int previousComboCounter = 0;
@@ -155,6 +155,21 @@ public class MovementState : PlayerStateBase
                 previousComboCounter = characterResources.comboCounter;
             }
         }
+    }
+
+    private void AttackAnimations(bool isStrongAttack)
+    {
+        int attackAnim = (characterResources.comboCounter % 3) + 1;
+        if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
+            player.animator.SetTrigger("Attacking");
+
+        if (previousAttackWasStrong != isStrongAttack)
+        {
+            previousAttackWasStrong = isStrongAttack;
+            player.animator.SetFloat(isStrongAttack ? lightAttackHash : strongAttackHash, 0);
+        }
+
+        player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
     }
     #endregion Player Attack
 
