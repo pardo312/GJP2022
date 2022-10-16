@@ -1,5 +1,7 @@
+using Jiufen.Audio;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -70,6 +72,7 @@ public class MovementState : PlayerStateBase
         {
             if (jumpState < 2)
             {
+                AudioManager.PlayAudio("SFX_JUMP");
                 player.animator.SetTrigger("Jump");
                 jumping = true;
                 playerRb.velocity = new Vector3(playerRb.velocity.x, jumpSpeed, playerRb.velocity.z);
@@ -83,12 +86,24 @@ public class MovementState : PlayerStateBase
 
     #region MoveHelpers
     #region Movement
+    const float footstepSoundCooldown = .5f;
+    float timerFootStep = footstepSoundCooldown;
     private void MovePlayer()
     {
+        timerFootStep -= Time.deltaTime;
+        if (timerFootStep <= 0)
+        {
+            AudioManager.PlayAudio("SFX_FOOTSTEP_" + Random.Range(1, 6));
+            timerFootStep = footstepSoundCooldown;
+        }
         float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
         playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
         playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
         player.animator.SetFloat("velocity", direction.magnitude);
+    }
+
+    public async void OnPathComplete()
+    {
     }
 
     private void RotateModel()
@@ -135,7 +150,7 @@ public class MovementState : PlayerStateBase
         if (timerAttackCooldown > 0)
             timerAttackCooldown -= Time.deltaTime;
 
-        if (timerAttackCooldown <= 0)
+        if (timerAttackCooldown <= 0 && queueAttacks.Count > 0)
         {
             timerAttackCooldown = cooldownAttack;
             ExecuteAttack(queueAttacks.Dequeue());

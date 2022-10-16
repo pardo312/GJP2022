@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Jiufen.Audio;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class GameFlowManager : MonoBehaviour
     private void Start()
     {
         StartGame();
+        AudioManager.PlayAudio("OST_WALK");
     }
 
     public void StartGame()

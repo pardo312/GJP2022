@@ -1,6 +1,7 @@
 ﻿using Pathfinding;
 using System.Threading.Tasks;
 using UnityEngine;
+using Jiufen.Audio;
 
 public class RangeEnemySearchState : EnemyStateBase
 {
@@ -50,7 +51,11 @@ public class RangeEnemySearchState : EnemyStateBase
             seeker.CancelCurrentPathRequest();
             if (damageablePlayer.Length > 0)
             {
+                if (!searchingPlayer)
+                    AudioManager.PlayAudio("OST_FIGHT");
+
                 aiPath.canMove = false;
+                searchingPlayer = true;
                 timerBetweenAttacks -= Time.deltaTime;
                 if (timerBetweenAttacks < 0)
                 {
@@ -61,13 +66,14 @@ public class RangeEnemySearchState : EnemyStateBase
             //-- --
             else
             {
-                searchingPlayer = true;
                 aiPath.canMove = true;
                 currentPath = seeker.StartPath(enemy.transform.position, player[0].transform.position);
             }
         }
         else
         {
+            if (searchingPlayer)
+                AudioManager.PlayAudio("OST_WALK");
             timerBetweenAttacks = 0;
             if (aiPath.reachedEndOfPath)
                 OnPathComplete();

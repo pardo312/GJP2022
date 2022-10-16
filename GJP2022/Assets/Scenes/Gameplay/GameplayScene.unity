@@ -1498,7 +1498,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -1676,7 +1676,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970613250}
-  m_LocalRotation: {x: -0, y: 5.9117156e-12, z: -1.364242e-12, w: 1}
+  m_LocalRotation: {x: -0, y: 4.3201e-11, z: -2.7398528e-11, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2033,7 +2033,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.2669336, y: -0.0000046721175, z: -0.000016776154, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: -0.0000047053154, z: -0.000016766959, w: 0.96371496}
   m_LocalPosition: {x: 52.605694, y: 6.95, z: -3.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2478,6 +2478,8 @@ MonoBehaviour:
   movementSpeed: 0.5
   jumpSpeed: 10
   fallSpeed: 0.3
+  cooldown: 2
+  postProcessGO: {fileID: 653260035}
 --- !u!54 &1957955859
 Rigidbody:
   m_ObjectHideFlags: 0

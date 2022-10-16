@@ -1,3 +1,4 @@
+using Jiufen.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,12 @@ public class GameMenu : MonoBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] float timeStartGame;
+
+    public void Start()
+    {
+        AudioManager.PlayAudio("OST_GAMEPLAY");
+    }
+
     public void StartGame(int index)
     {
         StartCoroutine(LoadGame(index));
