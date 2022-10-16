@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerStateMachine : CharacterStateMachine
@@ -20,6 +22,9 @@ public class PlayerStateMachine : CharacterStateMachine
 
     [Header("Attack")]
     [SerializeField] private float cooldown = 2;
+
+    //[Header("Life")]
+    //[SerializeField] private UnityEngine.Rendering.ScriptableRenderContext.;
     #endregion ---Fields---
 
     public void SetState(PlayerStateBase state)
