@@ -9,7 +9,12 @@ public class PlayerDisableState : PlayerStateBase
     {
     }
 
-    public override void ProcessInput(CallbackContext ctx)
+    public override void Move(CallbackContext ctx)
+    {
+
+    }
+
+    public override void Jump(CallbackContext ctx)
     {
 
     }

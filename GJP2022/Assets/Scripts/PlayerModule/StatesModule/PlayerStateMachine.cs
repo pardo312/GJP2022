@@ -14,6 +14,8 @@ public class PlayerStateMachine : CharacterStateMachine
     [Header("Movment")]
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] private float movementSpeed = 5;
+    [SerializeField] private float jumpSpeed = 5;
+    [SerializeField] private float fallSpeed = 1;
     private GJP2022InputActions playerInput;
     #endregion ---Fields---
 
@@ -32,12 +34,16 @@ public class PlayerStateMachine : CharacterStateMachine
     private void Start()
     {
         playerInput = new GJP2022InputActions();
-        playerInput.PlayerMovement.Move.performed += currentState.ProcessInput;
-        playerInput.PlayerMovement.Move.canceled += currentState.ProcessInput;
+        playerInput.PlayerMovement.Jump.started += currentState.Jump;
+        playerInput.PlayerMovement.Jump.canceled += currentState.Jump;
+        playerInput.PlayerMovement.Jump.Enable();
+
+        playerInput.PlayerMovement.Move.performed += currentState.Move;
+        playerInput.PlayerMovement.Move.canceled += currentState.Move;
         playerInput.PlayerMovement.Move.Enable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         currentState.UpdateState();
     }
@@ -46,7 +52,7 @@ public class PlayerStateMachine : CharacterStateMachine
     {
         if (stage == LevelStage.gameMode)
         {
-            SetState(new MovementState(this, playerRb, movementSpeed));
+            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed));
         }
         if (stage == LevelStage.inbetween)
         {

@@ -14,5 +14,6 @@ public abstract class PlayerStateBase
     }
 
     public abstract void UpdateState();
-    public abstract void ProcessInput(CallbackContext ctx);
+    public abstract void Move(CallbackContext ctx);
+    public abstract void Jump(CallbackContext ctx);
 }
