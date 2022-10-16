@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d69973b6f86d114fb66a25688cd2acc, type: 3}
+  m_Name: EnemyZones
+  m_EditorClassIdentifier: 
+  enemyRangeSpawn: 2
+  enemyMeleeSpawn: 4
+  spawnPoints:
+  - {x: 31.1, y: 0.95, z: 37.4}
+  - {x: 65.8, y: 0.95, z: 74.5}
+  - {x: 43.3, y: 0.95, z: 71.3}
+  - {x: 89.92, y: 0.95, z: 42.6}

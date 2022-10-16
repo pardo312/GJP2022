@@ -168,7 +168,7 @@ public class MovementState : PlayerStateBase
 
     private void DamageEnemy(bool isStrongAttack)
     {
-        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 2f), player.transform.localScale * 4, Quaternion.identity, LayerMask.GetMask("Enemy"));
+        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (new Vector3(direction.x, 0, direction.y) * 2f), player.transform.localScale * 4, Quaternion.identity, LayerMask.GetMask("Enemy"));
         if (attackRange.Length <= 0)
             return;
 
