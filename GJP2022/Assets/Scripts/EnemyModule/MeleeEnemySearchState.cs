@@ -66,12 +66,12 @@ public class MeleeEnemySearchState : EnemyStateBase
                 currentPath = seeker.StartPath(enemy.transform.position, player[0].transform.position);
             }
         }
-        else if (searchingPlayer == true)
+        else
         {
             timerBetweenAttacks = 0;
             if (aiPath.reachedEndOfPath)
                 OnPathComplete();
-            else
+            else if (searchingPlayer)
             {
                 searchingPlayer = false;
                 SearchRandomPoint();
