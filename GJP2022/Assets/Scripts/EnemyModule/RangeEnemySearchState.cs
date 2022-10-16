@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MeleeEnemySearchState : EnemyStateBase
+public class RangeEnemySearchState : EnemyStateBase
 {
     Seeker seeker;
     AIPath aiPath;
     Path currentPath;
     EnemyStats enemyStats;
 
-    public MeleeEnemySearchState(EnemyStateMachine enemy, params object[] parameters) : base(enemy)
+    public RangeEnemySearchState(EnemyStateMachine enemy, params object[] parameters) : base(enemy)
     {
         seeker = parameters[0] as Seeker;
         aiPath = parameters[1] as AIPath;
@@ -46,14 +46,13 @@ public class MeleeEnemySearchState : EnemyStateBase
         if (player.Length > 0)
         {
             // --this could be in other state--
-            Collider[] damageablePlayer = Physics.OverlapSphere(enemy.transform.position, 3, LayerMask.GetMask("Player"));
+            Collider[] damageablePlayer = Physics.OverlapSphere(enemy.transform.position, 18, LayerMask.GetMask("Player"));
             if (damageablePlayer.Length > 0)
             {
                 timerBetweenAttacks -= Time.deltaTime;
                 if (timerBetweenAttacks < 0)
                 {
-                    IDamageable damageable = damageablePlayer[0].GetComponent<IDamageable>();
-                    damageable.AddDamage(new NormalDamage() { amount = 10, target = damageable });
+                    enemy.InstantiateProjectile(damageablePlayer[0].transform.position - enemy.transform.position);
                     timerBetweenAttacks = enemyStats.cooldownAttacks;
                 }
             }

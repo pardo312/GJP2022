@@ -87,8 +87,11 @@ public class MovementState : PlayerStateBase
 
     private void RotateModel()
     {
-        Transform modelTransform = playerRb.transform.GetChild(0);
-        modelTransform.rotation = Quaternion.Lerp(modelTransform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up), 5 * Time.deltaTime);
+        if (direction.x != 0 || direction.y != 0)
+        {
+            Transform modelTransform = playerRb.transform.GetChild(0);
+            modelTransform.rotation = Quaternion.Lerp(modelTransform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up), 5 * Time.deltaTime);
+        }
     }
     #endregion Movement
 
@@ -116,7 +119,6 @@ public class MovementState : PlayerStateBase
         characterResources.comboCounter++;
         DamageEnemy(isStrongAttack);
     }
-
 
     private void DamageEnemy(bool isStrongAttack)
     {
@@ -172,7 +174,5 @@ public class MovementState : PlayerStateBase
         player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
     }
     #endregion Player Attack
-
-
     #endregion ---Mehtods---
 }

@@ -11,6 +11,7 @@ public class EnemyStateMachine : CharacterStateMachine
     [SerializeField] private EnemyStateBase currentState;
     //Delete this one as soon as possible, it could destroy worlds, even galaxies...
     [SerializeField] private bool isMelee;
+    [SerializeField] private Projectile projectilePrefab;
 
     [Header("Movement")]
     private Seeker seeker;
@@ -33,7 +34,7 @@ public class EnemyStateMachine : CharacterStateMachine
         if (isMelee)
             SetState(new MeleeEnemySearchState(this, seeker, aiPath, enemyStats));
         else
-            SetState(new MeleeEnemySearchState(this, seeker, aiPath, enemyStats));
+            SetState(new RangeEnemySearchState(this, seeker, aiPath, enemyStats));
     }
 
     public override void Update()
@@ -42,10 +43,10 @@ public class EnemyStateMachine : CharacterStateMachine
         currentState.UpdateState();
     }
 
-    public void InstantiateProjectile(Transform parent, Vector3 direction)
+    public void InstantiateProjectile(Vector3 direction)
     {
-        //Instantiate(projectilePrefab, parent.position, parent.rotation);
-
+        Projectile projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        projectile.Init(direction);
     }
 
     public override void TakeDamage(float amount)
