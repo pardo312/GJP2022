@@ -80,18 +80,14 @@ public class MovementState : PlayerStateBase
             float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
             playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
             playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
+            Transform modelTransform = playerRb.transform.GetChild(0);
+            modelTransform.rotation = Quaternion.Lerp(modelTransform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up), 5 * Time.deltaTime);
 
             if (playerRb.velocity.y > 0 && !jumping)
                 playerRb.velocity += Vector3.up * Physics.gravity.y * (2.5f) * Time.fixedDeltaTime;
             else
                 playerRb.velocity += Vector3.up * Physics.gravity.y * (1) * Time.fixedDeltaTime;
 
-            if (playerRb.velocity != Vector3.zero)
-            {
-                Transform modelTransform = playerRb.transform.GetChild(0);
-                modelTransform.rotation = Quaternion.LookRotation(playerRb.position + (playerRb.velocity * 10), Vector3.up);
-                //modelTransform.LookAt(playerRb.position + playerRb.velocity);
-            }
         }
 
         if (characterResources.comboCounter > 0)
