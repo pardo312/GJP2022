@@ -20,6 +20,7 @@ public class MovementState : PlayerStateBase
     private float fallSpeed;
     bool jumping = false;
     private CharacterResources characterResources;
+    bool previousAttackWasStrong = false;
     #endregion ---Fields---
 
     #region ---Mehtods---
@@ -41,15 +42,25 @@ public class MovementState : PlayerStateBase
 
     public override void Attack(bool isStrongAttack)
     {
-        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Player"));
+        int attackAnim = (characterResources.comboCounter % 3) + 1;
+        if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
+            player.animator.SetTrigger("Attacking");
+
+        if (previousAttackWasStrong != isStrongAttack)
+        {
+            previousAttackWasStrong = isStrongAttack;
+            player.animator.SetFloat(isStrongAttack ? lightAttackHash : strongAttackHash, 0);
+        }
+
+        player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
+        characterResources.comboCounter++;
+
+        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Enemy"));
         if (attackRange.Length <= 0)
             return;
 
         IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
         enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 20 : 10, target = enemy });
-        characterResources.comboCounter++;
-
-        player.animator.SetInteger(isStrongAttack ? strongAttackHash : lightAttackHash, characterResources.comboCounter);
     }
 
     public override void Move(CallbackContext ctx)
@@ -72,38 +83,81 @@ public class MovementState : PlayerStateBase
             jumping = false;
     }
 
-    private float timerToStopCombo;
     public override void UpdateState()
     {
         if (playerRb)
         {
-            float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
-            playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
-            playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
-            Transform modelTransform = playerRb.transform.GetChild(0);
-            modelTransform.rotation = Quaternion.Lerp(modelTransform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up), 5 * Time.deltaTime);
-
-            if (playerRb.velocity.y > 0 && !jumping)
-                playerRb.velocity += Vector3.up * Physics.gravity.y * (2.5f) * Time.fixedDeltaTime;
-            else
-                playerRb.velocity += Vector3.up * Physics.gravity.y * (1) * Time.fixedDeltaTime;
-
+            MovePlayer();
+            RotateModel();
+            LowHighJumpVerification();
         }
 
-        if (characterResources.comboCounter > 0)
-        {
-            timerToStopCombo -= Time.deltaTime;
-            if (timerToStopCombo <= 0)
-                characterResources.comboCounter = 0;
-        }
+        ComboCounterTick();
         if (IsGrounded())
             jumpState = 0;
+    }
+
+    #region Player Movement
+    #region Movement
+    private void MovePlayer()
+    {
+        float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
+        playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
+        playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
+    }
+
+    private void RotateModel()
+    {
+        Transform modelTransform = playerRb.transform.GetChild(0);
+        modelTransform.rotation = Quaternion.Lerp(modelTransform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up), 5 * Time.deltaTime);
+    }
+    #endregion Movement
+
+    #region Jump
+    private void LowHighJumpVerification()
+    {
+        if (playerRb.velocity.y > 0 && !jumping)
+            playerRb.velocity += Vector3.up * Physics.gravity.y * (2.5f) * Time.fixedDeltaTime;
+        else
+            playerRb.velocity += Vector3.up * Physics.gravity.y * (1) * Time.fixedDeltaTime;
     }
 
     private bool IsGrounded()
     {
         return Physics.Raycast(playerRb.transform.position, -Vector3.up, 1);
     }
+    #endregion Jump
+    #endregion Player Movement
+
+    #region Player Attack
+    private const float stopComboCooldown = 2;
+    private float timerToStopCombo = stopComboCooldown;
+    private int previousComboCounter = 0;
+    private void ComboCounterTick()
+    {
+        if (characterResources.comboCounter > 0)
+        {
+            if (previousComboCounter == characterResources.comboCounter)
+            {
+                timerToStopCombo -= Time.deltaTime;
+                if (timerToStopCombo <= 0)
+                {
+                    timerToStopCombo = stopComboCooldown;
+                    characterResources.comboCounter = 0;
+                    previousComboCounter = 0;
+                    player.animator.SetFloat(strongAttackHash, 0);
+                    player.animator.SetFloat(lightAttackHash, 0);
+                }
+            }
+            else
+            {
+                timerToStopCombo = stopComboCooldown;
+                previousComboCounter = characterResources.comboCounter;
+            }
+        }
+    }
+    #endregion Player Attack
+
 
     #endregion ---Mehtods---
 }
