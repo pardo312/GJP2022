@@ -598,7 +598,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: TERRAINPACKAGE_EXIST
+    1: TERRAINPACKAGE_EXIST;CREST_OCEAN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
