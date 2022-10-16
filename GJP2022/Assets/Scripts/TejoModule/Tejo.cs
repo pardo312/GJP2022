@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tejo : MonoBehaviour
 {
     [SerializeField] Rigidbody rigidbody;
-    [SerializeField] Vector3 forces;
+    public Vector3 forces;
     Vector3 initialPosition;
     Quaternion initialRotation;
 
