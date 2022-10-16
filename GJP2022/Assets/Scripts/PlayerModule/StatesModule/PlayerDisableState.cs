@@ -22,4 +22,8 @@ public class PlayerDisableState : PlayerStateBase
     public override void UpdateState()
     {
     }
+
+    public override void Attack(CallbackContext ctx)
+    {
+    }
 }

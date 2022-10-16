@@ -13,6 +13,9 @@ public class EnemyStateMachine : CharacterStateMachine
     [Header("Movement")]
     private Seeker seeker;
     private AIPath aiPath;
+
+    [Header("Resources")]
+    public EnemyStats enemyStats;
     #endregion ---Fields---
 
     public void SetState(EnemyStateBase state)
@@ -21,47 +24,28 @@ public class EnemyStateMachine : CharacterStateMachine
         stateName = currentState.ToString();
     }
 
-    private void Awake()
+    private void Start()
     {
-        SetState(new EnemyDisableState(this));
-        GameFlowManager.Singleton.OnGameStateChanged += HandleLevelStageChanged;
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
+        SetState(new MeleeEnemySearchState(this, seeker, aiPath, enemyStats));
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         currentState.UpdateState();
-    }
-
-    private void HandleLevelStageChanged(LevelStage stage)
-    {
-        if (stage == LevelStage.gameMode)
-        {
-            SetState(new MeleeEnemySearchState(this, seeker, aiPath));
-        }
-        if (stage == LevelStage.inbetween)
-        {
-            SetState(new EnemyDisableState(this));
-        }
-        if (stage == LevelStage.victory)
-        {
-            SetState(new EnemyDisableState(this));
-        }
     }
 
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
-        //if (stats.life <= 0)
-        //{
-        //    //TODO manage dead state
-        //}
+        if (characterResources.health <= 0)
+            SetState(new EnemyDisableState(this));
     }
 
     public override void AddDamage(Damage damageTaken)
     {
         base.AddDamage(damageTaken);
-        //animator.Play(getHitHash);
     }
 }

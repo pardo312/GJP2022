@@ -11,10 +11,12 @@ public class MovementState : PlayerStateBase
 
     private Rigidbody playerRb;
     private float movementSpeed;
+    Vector2 direction;
 
     private int jumpState = 0;
     private float jumpSpeed;
     private float fallSpeed;
+    bool jumping = false;
     #endregion ---Fields---
 
     #region ---Mehtods---
@@ -30,7 +32,17 @@ public class MovementState : PlayerStateBase
         verticalHash = Animator.StringToHash("isMoving");
         horizontalHash = Animator.StringToHash("isRotating");
     }
-    Vector2 direction;
+
+    public override void Attack(CallbackContext ctx)
+    {
+        Collider[] attackRange = Physics.OverlapBox(player.transform.position + (player.transform.forward * 1.5f), player.transform.localScale * 2, Quaternion.identity, LayerMask.GetMask("Player"));
+        if (attackRange.Length <= 0)
+            return;
+
+        IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
+        enemy.AddDamage(new NormalDamage() { amount = 10, target = enemy });
+    }
+
     public override void Move(CallbackContext ctx)
     {
         direction = ctx.ReadValue<Vector2>();
@@ -50,7 +62,6 @@ public class MovementState : PlayerStateBase
         if (ctx.canceled)
             jumping = false;
     }
-    bool jumping = false;
 
     public override void UpdateState()
     {
@@ -74,5 +85,6 @@ public class MovementState : PlayerStateBase
     {
         return Physics.Raycast(playerRb.transform.position, -Vector3.up, 1);
     }
+
     #endregion ---Mehtods---
 }

@@ -7,8 +7,13 @@ public class CharacterStateMachine : MonoBehaviour, IDamageable
     public Animator animator;
 
     [Header("Player Stats")]
+    public CharacterResources characterResources;
     public List<Damage> damages = new List<Damage>();
 
+    public virtual void Update()
+    {
+        ApplyDamages();
+    }
     public void ApplyDamages()
     {
         if (damages.Count <= 0)
@@ -31,6 +36,8 @@ public class CharacterStateMachine : MonoBehaviour, IDamageable
     {
         //TODO reduce amount to current life: stats.life -= amount;
         //Show UI damage effect
+        characterResources.health -= amount;
     }
-   
+
 }
+
