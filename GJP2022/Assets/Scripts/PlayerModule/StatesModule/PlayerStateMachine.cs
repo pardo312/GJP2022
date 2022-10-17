@@ -87,15 +87,18 @@ public class PlayerStateMachine : CharacterStateMachine
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
-        AudioManager.PlayAudio("SFX_HIT_1");
-        animator.SetTrigger("Damage");
-        vignette.color.Override(Color.red);
-        vignette.intensity.Override(1 - (characterResources.health / 100));
 
         if (characterResources.health <= 0)
         {
             animator.SetTrigger("Death");
             SetState(new PlayerDisableState(this));
+        }
+        else
+        {
+            AudioManager.PlayAudio("SFX_HIT_1");
+            animator.SetTrigger("Damage");
+            vignette.color.Override(Color.red);
+            vignette.intensity.Override(1 - (characterResources.health / 100));
         }
     }
 

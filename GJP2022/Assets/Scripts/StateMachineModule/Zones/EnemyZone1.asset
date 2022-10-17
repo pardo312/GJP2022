@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d69973b6f86d114fb66a25688cd2acc, type: 3}
-  m_Name: EnemyZones
+  m_Name: EnemyZone1
   m_EditorClassIdentifier: 
   enemyRangeSpawn: 2
   enemyMeleeSpawn: 4

@@ -56,7 +56,10 @@ public class EnemyStateMachine : CharacterStateMachine
         AudioManager.PlayAudio("SFX_HIT_2");
 
         if (characterResources.health <= 0)
+        {
             SetState(new EnemyDisableState(this));
+            GameFlowManager.Singleton.enemyZonesController.KillEnemy();
+        }
     }
 
     public override void AddDamage(Damage damageTaken)
