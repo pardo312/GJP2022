@@ -147,6 +147,12 @@ public class MovementState : PlayerStateBase
     public bool comboGrabbed = false;
     public void AttackQueue()
     {
+        if (player.hasBeenHit)
+        {
+            comboGrabbed = false;
+            queueAttacks.Clear();
+            return;
+        }
         if (timerAttackCooldown > 0)
             timerAttackCooldown -= Time.deltaTime;
 
@@ -159,10 +165,11 @@ public class MovementState : PlayerStateBase
         }
     }
 
-    public void ExecuteAttack(bool isStrongAttack)
+    public async void ExecuteAttack(bool isStrongAttack)
     {
         AttackAnimations(isStrongAttack);
         characterResources.comboCounter++;
+        await Task.Delay(1300);
         DamageEnemy(isStrongAttack);
     }
 
@@ -174,7 +181,7 @@ public class MovementState : PlayerStateBase
             return;
 
         IDamageable enemy = attackRange[0].GetComponent<IDamageable>();
-        enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 20 : 10, target = enemy });
+        enemy.AddDamage(new NormalDamage() { amount = isStrongAttack ? 40 : 20, target = enemy });
     }
     #endregion Attack Inputs
 

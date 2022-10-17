@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f7574c82f856e43925cafded6fc447, type: 3}
   m_Name: MeleeType1
   m_EditorClassIdentifier: 
-  strength: 10
-  cooldownAttacks: 5
+  strength: 5
+  cooldownAttacks: 10
   emeraldDropMinMax: {x: 6, y: 9}

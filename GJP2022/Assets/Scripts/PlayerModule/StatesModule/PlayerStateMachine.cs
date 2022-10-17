@@ -2,6 +2,7 @@ using Jiufen.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -84,6 +85,7 @@ public class PlayerStateMachine : CharacterStateMachine
         }
     }
 
+    public bool hasBeenHit = false;
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
@@ -95,6 +97,7 @@ public class PlayerStateMachine : CharacterStateMachine
         }
         else
         {
+            HasBeenHitDelay();
             AudioManager.PlayAudio("SFX_HIT_1");
             animator.SetTrigger("Damage");
             vignette.color.Override(Color.red);
@@ -102,6 +105,12 @@ public class PlayerStateMachine : CharacterStateMachine
         }
     }
 
+    public async void HasBeenHitDelay()
+    {
+        hasBeenHit = true;
+        await Task.Delay(1300);
+        hasBeenHit = false;
+    }
     public override void AddDamage(Damage damageTaken)
     {
         base.AddDamage(damageTaken);
