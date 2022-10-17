@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class EquipArm : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] int index;
-
+    [SerializeField] CurrentArm currentArm;
     private void Start()
     {
         int value = PlayerPrefs.GetInt("Arm" + index.ToString(), 0);
@@ -19,5 +19,6 @@ public class EquipArm : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         PlayerPrefs.SetInt("SelectedArm", index);
+        currentArm.UpdateSelectedArm(index);
     }
 }
