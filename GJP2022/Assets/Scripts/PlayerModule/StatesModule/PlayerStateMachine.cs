@@ -40,6 +40,12 @@ public class PlayerStateMachine : CharacterStateMachine
         SetState(new PlayerDisableState(this));
         GameFlowManager.Singleton.OnGameStateChanged += HandleLevelStageChanged;
     }
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Transform model = transform.GetChild(0).GetChild(0);
+        Gizmos.DrawCube(model.transform.position + (model.forward * 1.5f), transform.localScale * 4);
+    }
 
     private void Start()
     {

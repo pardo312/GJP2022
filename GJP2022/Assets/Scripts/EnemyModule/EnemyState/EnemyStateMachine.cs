@@ -59,6 +59,7 @@ public class EnemyStateMachine : CharacterStateMachine
         {
             SetState(new EnemyDisableState(this));
             GameFlowManager.Singleton.enemyZonesController.KillEnemy();
+            Destroy(this.gameObject);
         }
     }
 
