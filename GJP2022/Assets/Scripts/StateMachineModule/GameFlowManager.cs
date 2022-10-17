@@ -7,7 +7,9 @@ using Jiufen.Audio;
 public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Singleton;
+    public EnemyZonesController enemyZonesController;
     public event Action<LevelStage> OnGameStateChanged;
+    public int zone = 0;
 
     public LevelStage LevelStage = LevelStage.setup;
 
@@ -33,6 +35,7 @@ public class GameFlowManager : MonoBehaviour
     public void StartGame()
     {
         SetLevelState(LevelStage.gameMode);
+        enemyZonesController.SpawnEnemies();
     }
 
     private void SetLevelState(LevelStage state)

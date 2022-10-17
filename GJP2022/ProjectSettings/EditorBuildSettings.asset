@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gameplay/GameplayScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/Tejo.unity
+    guid: 669184b915b5be04c8d1948f8fdd2865
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 726375c8fa23a5b409079e36e023fde1, type: 2}

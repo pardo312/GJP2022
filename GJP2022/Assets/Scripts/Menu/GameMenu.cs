@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour
 
     public void Start()
     {
-        AudioManager.PlayAudio("OST_GAMEPLAY");
+        AudioManager.PlayAudio("OST_MAIN_MENU");
     }
 
     public void StartGame(int index)
