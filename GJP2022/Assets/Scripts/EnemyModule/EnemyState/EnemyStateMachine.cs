@@ -13,6 +13,7 @@ public class EnemyStateMachine : CharacterStateMachine
     //Delete this one as soon as possible, it could destroy worlds, even galaxies...
     [SerializeField] private bool isMelee;
     [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private GameObject muzzlePrefab;
 
     [Header("Movement")]
     private Seeker seeker;
@@ -54,10 +55,56 @@ public class EnemyStateMachine : CharacterStateMachine
     {
         base.TakeDamage(amount);
         AudioManager.PlayAudio("SFX_HIT_2");
+//muzzlePrefab.
 
         if (characterResources.health <= 0)
         {
             SetState(new EnemyDisableState(this));
+            GameFlowManager.Singleton.enemyZonesController.KillEnemy();
+            Destroy(this.gameObject);
+        }
+    }
+
+    public override void AddDamage(Damage damageTaken)
+    {
+        base.AddDamage(damageTaken);
+    }
+}
+
+public class BossStateMachine : CharacterStateMachine
+{
+    #region ---Fields---
+    [Header("StateMachine")]
+    [SerializeField] private string stateName;
+    [SerializeField] private EnemyStateBase currentState;
+
+    [Header("Resources")]
+    public EnemyStats enemyStats;
+    #endregion ---Fields---
+
+    public void SetState(EnemyStateBase state)
+    {
+        currentState = state;
+        stateName = currentState.ToString();
+    }
+
+    private void Start()
+    {
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        currentState.UpdateState();
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+        AudioManager.PlayAudio("SFX_HIT_2");
+
+        if (characterResources.health <= 0)
+        {
             GameFlowManager.Singleton.enemyZonesController.KillEnemy();
             Destroy(this.gameObject);
         }
