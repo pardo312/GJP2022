@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Mecha : MonoBehaviour
 {
+    public Action OnExplode;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clip;
     [SerializeField] private GameObject effects, Model;
@@ -19,6 +21,7 @@ public class Mecha : MonoBehaviour
             Model.gameObject.SetActive(false);
             StartCoroutine(BeHappy());
             exploded = true;
+            OnExplode?.Invoke();
         }
     }
 
