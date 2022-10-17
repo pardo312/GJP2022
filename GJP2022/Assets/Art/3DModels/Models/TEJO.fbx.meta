@@ -3,7 +3,27 @@ guid: f182b3509f74e784c90fac75df71c5e8
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grea
+    second: {fileID: 2100000, guid: d24c018ae27959b419da38052743a884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mecha
+    second: {fileID: 2100000, guid: b019d6f5305e511439fcd4b3f8d503b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 1a441316f3e4701428fa55cc6691e86b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 6be63d8c63db025499767a1595719138, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
