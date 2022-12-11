@@ -60,7 +60,6 @@ public class EnemyStateMachine : CharacterStateMachine
         if (characterResources.health <= 0)
         {
             SetState(new EnemyDisableState(this));
-            GameFlowManager.Singleton.enemyZonesController.KillEnemy();
             Destroy(this.gameObject);
         }
     }

@@ -38,7 +38,7 @@ public class BossStateMachine : CharacterStateMachine
 
         if (characterResources.health <= 0)
         {
-            GameFlowManager.Singleton.enemyZonesController.KillEnemy();
+            //GameFlowManager.Singleton.enemyZonesController.KillEnemy();
             Destroy(this.gameObject);
         }
     }
