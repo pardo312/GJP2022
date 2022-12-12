@@ -5,25 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerDisableState : PlayerStateBase
 {
-    public PlayerDisableState(PlayerStateMachine player, params object[] parameters) : base(player)
-    {
-    }
-
-    public override void Move(CallbackContext ctx)
-    {
-
-    }
-
-    public override void Jump(CallbackContext ctx)
-    {
-
-    }
-
-    public override void UpdateState()
-    {
-    }
-
-    public override void Attack(bool isStrongAttack)
-    {
-    }
+    public PlayerDisableState(PlayerStateMachine player, params object[] parameters) : base(player) { }
+    public override void Execute(params object[] parameters) { }
+    public override void UpdateState() { }
 }

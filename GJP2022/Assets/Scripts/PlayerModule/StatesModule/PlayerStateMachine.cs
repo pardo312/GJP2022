@@ -8,34 +8,49 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using static UnityEngine.InputSystem.InputAction;
 
+public enum PlayerAction
+{
+    MOVE,
+    JUMP,
+    ATTACK
+}
+
 public class PlayerStateMachine : CharacterStateMachine
 {
     #region ---Fields---
     [Header("StateMachine")]
     [SerializeField] private string stateName;
     [SerializeField] private PlayerStateBase currentState;
+    public PlayerMovementController playerMovementController;
+    public JumpController jumpController;
 
     [Header("Movment")]
-    [SerializeField] private Rigidbody playerRb;
-    [SerializeField] private float movementSpeed = 5;
-    [SerializeField] private float jumpSpeed = 5;
-    [SerializeField] private float fallSpeed = 1;
     private GJP2022InputActions playerInput;
+    public Rigidbody PlayerRb { get => playerRb; }
+    [SerializeField] private Rigidbody playerRb;
+    public float MovementSpeed { get => movementSpeed; }
+    [SerializeField] private float movementSpeed = 5;
+    public float JumpSpeed { get => jumpSpeed; }
+    [SerializeField] private float jumpSpeed = 5;
+    public float FallSpeed { get => jumpSpeed; }
+    [SerializeField] private float fallSpeed = 1;
+
 
     [Header("Attack")]
     [SerializeField] private float cooldown = 2;
+    public float Cooldown { get => cooldown; }
 
     [Header("Damage")]
     [SerializeField] private GameObject postProcessGO;
     Vignette vignette;
+
+    //Class variables
+    public bool hasBeenHit = false;
     #endregion ---Fields---
 
-    public void SetState(PlayerStateBase state)
-    {
-        currentState = state;
-        stateName = currentState.ToString();
-    }
+    #region ----Methods----
 
+    #region Unity Methods
     private void Awake()
     {
         SetState(new PlayerDisableState(this));
@@ -44,36 +59,59 @@ public class PlayerStateMachine : CharacterStateMachine
 
     private void Start()
     {
+        RegisterInputActions();
+        InitiateVignette();
+    }
+
+    #region Start helpers
+
+    public void RegisterInputActions()
+    {
         playerInput = new GJP2022InputActions();
-        playerInput.PlayerMovement.Attack1.started += (ctx) => currentState.Attack(false);
+
+        playerInput.PlayerMovement.Attack1.started += (ctx) => currentState.Execute(PlayerAction.ATTACK, ctx, false);
+        playerInput.PlayerMovement.Attack2.started += (ctx) => currentState.Execute(PlayerAction.ATTACK, true);
+
+        playerInput.PlayerMovement.Jump.performed += (ctx) => currentState.Execute(PlayerAction.JUMP, ctx);
+        playerInput.PlayerMovement.Jump.canceled += (ctx) => currentState.Execute(PlayerAction.JUMP, ctx);
+
+        playerInput.PlayerMovement.Move.performed += (ctx) => currentState.Execute(PlayerAction.MOVE, ctx);
+        playerInput.PlayerMovement.Move.canceled += (ctx) => currentState.Execute(PlayerAction.MOVE, ctx);
+
         playerInput.PlayerMovement.Attack1.Enable();
-
-        playerInput.PlayerMovement.Attack2.started += (ctx) => currentState.Attack(true);
         playerInput.PlayerMovement.Attack2.Enable();
-
-        playerInput.PlayerMovement.Jump.started += currentState.Jump;
-        playerInput.PlayerMovement.Jump.canceled += currentState.Jump;
         playerInput.PlayerMovement.Jump.Enable();
-
-        playerInput.PlayerMovement.Move.performed += currentState.Move;
-        playerInput.PlayerMovement.Move.canceled += currentState.Move;
         playerInput.PlayerMovement.Move.Enable();
+    }
 
+
+    public void InitiateVignette()
+    {
         VolumeProfile volumeProfile = postProcessGO.GetComponent<Volume>()?.profile;
         if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
         if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
     }
+    #endregion Start helpers
 
     private void FixedUpdate()
     {
         currentState.UpdateState();
+    }
+    #endregion Unity Methods
+
+    #region State
+    public PlayerStateBase SetState(PlayerStateBase state, params object[] parameters)
+    {
+        currentState = state;
+        stateName = currentState.ToString();
+        return currentState;
     }
 
     private void HandleLevelStageChanged(LevelStage stage)
     {
         if (stage == LevelStage.gameMode)
         {
-            SetState(new MovementState(this, playerRb, movementSpeed, jumpSpeed, fallSpeed, characterResources, cooldown));
+            SetState(new OnGroundState(this));
         }
         if (stage == LevelStage.inbetween)
         {
@@ -84,13 +122,16 @@ public class PlayerStateMachine : CharacterStateMachine
             SetState(new PlayerDisableState(this));
         }
     }
+    #endregion State
 
-    public bool hasBeenHit = false;
+    #region Damage
+
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
 
-        if (characterResources.health <= 0)
+        bool isPlayerDead = CharacterResources.health <= 0;
+        if (isPlayerDead)
         {
             animator.SetTrigger("Death");
             SetState(new PlayerDisableState(this));
@@ -101,7 +142,7 @@ public class PlayerStateMachine : CharacterStateMachine
             AudioManager.PlayAudio("SFX_HIT_1");
             animator.SetTrigger("Damage");
             vignette.color.Override(Color.red);
-            vignette.intensity.Override(1 - (characterResources.health / 100));
+            vignette.intensity.Override(1 - (CharacterResources.health / 100));
         }
     }
 
@@ -111,9 +152,12 @@ public class PlayerStateMachine : CharacterStateMachine
         await Task.Delay(1300);
         hasBeenHit = false;
     }
+
     public override void AddDamage(Damage damageTaken)
     {
         base.AddDamage(damageTaken);
         //animator.Play(getHitHash);
     }
+    #endregion Damage
+    #endregion ----Methods----
 }

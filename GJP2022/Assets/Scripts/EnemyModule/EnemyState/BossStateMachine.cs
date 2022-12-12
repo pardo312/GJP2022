@@ -36,7 +36,7 @@ public class BossStateMachine : CharacterStateMachine
         AudioManager.PlayAudio("SFX_HIT_2");
         Destroy(Instantiate(muzzlePrefab, this.transform.position, this.transform.rotation), 5);
 
-        if (characterResources.health <= 0)
+        if (CharacterResources.health <= 0)
         {
             //GameFlowManager.Singleton.enemyZonesController.KillEnemy();
             Destroy(this.gameObject);

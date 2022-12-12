@@ -1,29 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
-public class OnGroundState : PlayerStateBase
+
+public class JumpingState : PlayerStateBase
 {
-    #region ---Fields---
+    #region ----Fields----
     private PlayerMovementController playerMovementController;
     private JumpController jumpController;
-    #endregion ---Fields---
+    #endregion ----Fields----
 
-    #region ---Mehtods---
-    #region State Base
-    public OnGroundState(PlayerStateMachine _player) : base(_player)
+    #region ----Methods----
+    public JumpingState(PlayerStateMachine _player) : base(_player)
     {
         this.player = _player;
         this.playerMovementController = _player.playerMovementController;
         this.jumpController = _player.jumpController;
     }
 
-    public override void UpdateState()
-    {
-        playerMovementController.MovePlayer();
-        playerMovementController.RotateModel();
-    }
-    #endregion State Base
-
-    #region Movement
     public override void Execute(params object[] parameters)
     {
         PlayerAction playerStateToExecute = (PlayerAction)parameters[0];
@@ -34,14 +26,22 @@ public class OnGroundState : PlayerStateBase
                 playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
                 break;
             case PlayerAction.JUMP:
-                player.SetState(new JumpingState(player)).Execute(PlayerAction.JUMP, ctx);
-                break;
-            case PlayerAction.ATTACK:
-                player.SetState(new AttackState(player));
+                if (ctx.started)
+                    jumpController.Jump();
+                if (ctx.canceled)
+                    jumpController.ReleaseJump();
                 break;
         }
     }
 
-    #endregion Movement
-    #endregion ---Mehtods---
+    public override void UpdateState()
+    {
+        playerMovementController.MovePlayer();
+        playerMovementController.RotateModel();
+        jumpController.LowHighJumpVerification();
+        if (jumpController.IsGrounded())
+            player.SetState(new OnGroundState(player));
+    }
+
+    #endregion ----Methods----
 }
