@@ -24,22 +24,19 @@ public class OnGroundState : PlayerStateBase
     #endregion State Base
 
     #region Movement
-    public override void Execute(params object[] parameters)
+    public override void Move(CallbackContext ctx)
     {
-        PlayerAction playerStateToExecute = (PlayerAction)parameters[0];
-        CallbackContext ctx = (CallbackContext)parameters[1];
-        switch (playerStateToExecute)
-        {
-            case PlayerAction.MOVE:
-                playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
-                break;
-            case PlayerAction.JUMP:
-                player.SetState(new JumpingState(player)).Execute(PlayerAction.JUMP, ctx);
-                break;
-            case PlayerAction.ATTACK:
-                player.SetState(new AttackState(player));
-                break;
-        }
+        playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
+    }
+
+    public override void Jump(CallbackContext ctx)
+    {
+        player.SetState(new OnAir(player)).Jump(ctx);
+    }
+
+    public override void Attack(bool isStrongAttack)
+    {
+        player.SetState(new AttackingState(player)).Attack(isStrongAttack);
     }
 
     #endregion Movement

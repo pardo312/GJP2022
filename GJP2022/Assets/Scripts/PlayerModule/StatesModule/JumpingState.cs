@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
-public class JumpingState : PlayerStateBase
+public class OnAir : PlayerStateBase
 {
     #region ----Fields----
     private PlayerMovementController playerMovementController;
@@ -9,30 +9,26 @@ public class JumpingState : PlayerStateBase
     #endregion ----Fields----
 
     #region ----Methods----
-    public JumpingState(PlayerStateMachine _player) : base(_player)
+    public OnAir(PlayerStateMachine _player) : base(_player)
     {
         this.player = _player;
         this.playerMovementController = _player.playerMovementController;
         this.jumpController = _player.jumpController;
     }
 
-    public override void Execute(params object[] parameters)
+    public override void Move(CallbackContext ctx)
     {
-        PlayerAction playerStateToExecute = (PlayerAction)parameters[0];
-        CallbackContext ctx = (CallbackContext)parameters[1];
-        switch (playerStateToExecute)
-        {
-            case PlayerAction.MOVE:
-                playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
-                break;
-            case PlayerAction.JUMP:
-                if (ctx.started)
-                    jumpController.Jump();
-                if (ctx.canceled)
-                    jumpController.ReleaseJump();
-                break;
-        }
+        playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
     }
+
+    public override void Jump(CallbackContext ctx)
+    {
+        if (ctx.started)
+            jumpController.Jump();
+        if (ctx.canceled)
+            jumpController.ReleaseJump();
+    }
+    public override void Attack(bool isStrongAttack) { }
 
     public override void UpdateState()
     {
@@ -42,6 +38,7 @@ public class JumpingState : PlayerStateBase
         if (jumpController.IsGrounded())
             player.SetState(new OnGroundState(player));
     }
+
 
     #endregion ----Methods----
 }

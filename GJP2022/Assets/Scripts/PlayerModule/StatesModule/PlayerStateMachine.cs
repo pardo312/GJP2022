@@ -69,14 +69,14 @@ public class PlayerStateMachine : CharacterStateMachine
     {
         playerInput = new GJP2022InputActions();
 
-        playerInput.PlayerMovement.Attack1.started += (ctx) => currentState.Execute(PlayerAction.ATTACK, ctx, false);
-        playerInput.PlayerMovement.Attack2.started += (ctx) => currentState.Execute(PlayerAction.ATTACK, true);
+        playerInput.PlayerMovement.Attack1.started += (ctx) => currentState.Attack(false);
+        playerInput.PlayerMovement.Attack2.started += (ctx) => currentState.Attack(true);
 
-        playerInput.PlayerMovement.Jump.performed += (ctx) => currentState.Execute(PlayerAction.JUMP, ctx);
-        playerInput.PlayerMovement.Jump.canceled += (ctx) => currentState.Execute(PlayerAction.JUMP, ctx);
+        playerInput.PlayerMovement.Jump.performed += (ctx) => currentState.Jump(ctx);
+        playerInput.PlayerMovement.Jump.canceled += (ctx) => currentState.Jump(ctx);
 
-        playerInput.PlayerMovement.Move.performed += (ctx) => currentState.Execute(PlayerAction.MOVE, ctx);
-        playerInput.PlayerMovement.Move.canceled += (ctx) => currentState.Execute(PlayerAction.MOVE, ctx);
+        playerInput.PlayerMovement.Move.performed += (ctx) => currentState.Move(ctx);
+        playerInput.PlayerMovement.Move.canceled += (ctx) => currentState.Move(ctx);
 
         playerInput.PlayerMovement.Attack1.Enable();
         playerInput.PlayerMovement.Attack2.Enable();

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class AttackState : PlayerStateBase
+public class AttackingState : PlayerStateBase
 {
     #region ----Fields----
     private float timerAttackCooldown;
     public Queue<bool> queueAttacks = new Queue<bool>();
-    public bool comboGrabbed = false;
+    public bool hasCombo = false;
 
     private const float stopComboCooldown = 2;
     private float timerToStopCombo = stopComboCooldown;
@@ -19,14 +20,17 @@ public class AttackState : PlayerStateBase
 
     private int lightAttackHash;
     private int strongAttackHash;
+
+    private PlayerMovementController playerMovementController;
     #endregion ----Fields----
 
     #region ----Methods----
     #region State Methods
-    public AttackState(PlayerStateMachine player, params object[] parameters) : base(player)
+    public AttackingState(PlayerStateMachine player, params object[] parameters) : base(player)
     {
         characterResources = player.CharacterResources;
         cooldownAttack = player.Cooldown;
+        this.playerMovementController = player.playerMovementController;
 
         lightAttackHash = Animator.StringToHash("lightAttack");
         strongAttackHash = Animator.StringToHash("strongAttack");
@@ -34,39 +38,52 @@ public class AttackState : PlayerStateBase
 
     public override void UpdateState()
     {
+        playerMovementController.RotateModel();
         AttackQueue();
         ComboCounterTick();
     }
 
-    public override void Execute(params object[] parameters)
+    public override void Attack(bool isStrongAttack)
     {
-        bool isStrongAttack = (bool)parameters[0];
-        if (queueAttacks.Count < 3 && !comboGrabbed)
+        if (queueAttacks.Count < 3 && !hasCombo)
             queueAttacks.Enqueue(isStrongAttack);
         if (queueAttacks.Count == 3)
-            comboGrabbed = true;
+            hasCombo = true;
     }
+
+    public override void Move(InputAction.CallbackContext ctx)
+    {
+        playerMovementController.SetDirection(ctx.ReadValue<Vector2>());
+    }
+
+    public override void Jump(InputAction.CallbackContext ctx) { }
     #endregion State Methods
 
     #region Attack Inputs
     public void AttackQueue()
     {
         if (player.hasBeenHit)
+            EndCombo();
+        else
         {
-            comboGrabbed = false;
-            queueAttacks.Clear();
-            return;
-        }
-        if (timerAttackCooldown > 0)
-            timerAttackCooldown -= Time.deltaTime;
+            if (timerAttackCooldown > 0)
+                timerAttackCooldown -= Time.deltaTime;
 
-        if (timerAttackCooldown <= 0 && queueAttacks.Count > 0)
-        {
-            timerAttackCooldown = cooldownAttack;
-            ExecuteAttack(queueAttacks.Dequeue());
-            if (queueAttacks.Count == 0 && comboGrabbed)
-                comboGrabbed = false;
+            if (timerAttackCooldown <= 0 && queueAttacks.Count > 0)
+            {
+                timerAttackCooldown = cooldownAttack;
+                ExecuteAttack(queueAttacks.Dequeue());
+                if (queueAttacks.Count == 0 && hasCombo)
+                    EndCombo();
+            }
         }
+    }
+
+    public void EndCombo()
+    {
+        hasCombo = false;
+        queueAttacks.Clear();
+        player.SetState(new OnGroundState(player));
     }
 
     public async void ExecuteAttack(bool isStrongAttack)
@@ -128,6 +145,7 @@ public class AttackState : PlayerStateBase
 
         player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
     }
+
     #endregion Player Attack
     #endregion ----Methods----
 }

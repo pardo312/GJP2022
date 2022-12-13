@@ -7,8 +7,8 @@ public class CharacterStateMachine : MonoBehaviour, IDamageable
     public Animator animator;
 
     [Header("Player Stats")]
-    private CharacterResources characterResources;
-    public CharacterResources CharacterResources { get; }
+    [SerializeField] private CharacterResources characterResources;
+    public CharacterResources CharacterResources { get => characterResources; }
     public List<Damage> damages = new List<Damage>();
 
     public virtual void Update()
