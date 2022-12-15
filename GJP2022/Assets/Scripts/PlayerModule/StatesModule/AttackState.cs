@@ -10,7 +10,7 @@ public class AttackingState : PlayerStateBase
     public Queue<bool> queueAttacks = new Queue<bool>();
     public bool hasCombo = false;
 
-    private const float stopComboCooldown = 2;
+    private const float stopComboCooldown = 2f;
     private float timerToStopCombo = stopComboCooldown;
     private int previousComboCounter = 0;
 
@@ -32,12 +32,17 @@ public class AttackingState : PlayerStateBase
         cooldownAttack = player.Cooldown;
         this.playerMovementController = player.playerMovementController;
 
+        playerMovementController.StopMovement();
         lightAttackHash = Animator.StringToHash("lightAttack");
         strongAttackHash = Animator.StringToHash("strongAttack");
     }
 
     public override void UpdateState()
     {
+        if (!isAttacking)
+            playerMovementController.MovePlayer();
+        else
+            playerMovementController.StopMovement();
         playerMovementController.RotateModel();
         AttackQueue();
         ComboCounterTick();
@@ -63,19 +68,25 @@ public class AttackingState : PlayerStateBase
     public void AttackQueue()
     {
         if (player.hasBeenHit)
-            EndCombo();
-        else
         {
-            if (timerAttackCooldown > 0)
-                timerAttackCooldown -= Time.deltaTime;
+            EndCombo();
+            return;
+        }
 
-            if (timerAttackCooldown <= 0 && queueAttacks.Count > 0)
+        if (timerAttackCooldown > 0)
+            timerAttackCooldown -= Time.deltaTime;
+
+        if (timerAttackCooldown <= 0)
+        {
+            if (queueAttacks.Count > 0)
             {
                 timerAttackCooldown = cooldownAttack;
                 ExecuteAttack(queueAttacks.Dequeue());
-                if (queueAttacks.Count == 0 && hasCombo)
+                if (queueAttacks.Count == 0 && hasCombo && !isAttacking)
                     EndCombo();
             }
+            else
+                EndCombo();
         }
     }
 
@@ -85,13 +96,16 @@ public class AttackingState : PlayerStateBase
         queueAttacks.Clear();
         player.SetState(new OnGroundState(player));
     }
+    public bool isAttacking = false;
 
     public async void ExecuteAttack(bool isStrongAttack)
     {
+        isAttacking = true;
         AttackAnimations(isStrongAttack);
         characterResources.comboCounter++;
         await Task.Delay(1300);
         DamageEnemy(isStrongAttack);
+        isAttacking = false;
     }
 
     private void DamageEnemy(bool isStrongAttack)

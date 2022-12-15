@@ -14,7 +14,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private Vector2 direction;
     private float timerFootStep = footstepSoundCooldown;
-    private float movementSpeed;
+    [SerializeField] private float movementSpeed;
     #endregion ----Fields----
 
     #region ----Methods----
@@ -39,12 +39,16 @@ public class PlayerMovementController : MonoBehaviour
             AudioManager.PlayAudio("SFX_FOOTSTEP_" + Random.Range(1, 6));
             timerFootStep = footstepSoundCooldown;
         }
-        float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 1000;
+        float movementMultiplier = movementSpeed * Time.fixedDeltaTime * 100;
         playerRb.AddRelativeForce(direction.x * movementMultiplier, 0, direction.y * movementMultiplier, ForceMode.VelocityChange);
         playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
         animator.SetFloat("velocity", direction.magnitude);
     }
 
+    public void StopMovement()
+    {
+        playerRb.velocity = new Vector3(0, playerRb.velocity.y, 0);
+    }
     public void RotateModel()
     {
         if (direction.x != 0 || direction.y != 0)
