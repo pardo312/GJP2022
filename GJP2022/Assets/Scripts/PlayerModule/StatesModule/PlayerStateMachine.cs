@@ -72,7 +72,7 @@ public class PlayerStateMachine : CharacterStateMachine
         playerInput.PlayerMovement.Attack1.started += (ctx) => currentState.Attack(false);
         playerInput.PlayerMovement.Attack2.started += (ctx) => currentState.Attack(true);
 
-        playerInput.PlayerMovement.Jump.performed += (ctx) => currentState.Jump(ctx);
+        playerInput.PlayerMovement.Jump.started += (ctx) => currentState.Jump(ctx);
         playerInput.PlayerMovement.Jump.canceled += (ctx) => currentState.Jump(ctx);
 
         playerInput.PlayerMovement.Move.performed += (ctx) => currentState.Move(ctx);

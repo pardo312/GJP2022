@@ -20,6 +20,7 @@ public class OnGroundState : PlayerStateBase
     {
         playerMovementController.MovePlayer();
         playerMovementController.RotateModel();
+        jumpController.LowHighJumpVerification();
     }
     #endregion State Base
 

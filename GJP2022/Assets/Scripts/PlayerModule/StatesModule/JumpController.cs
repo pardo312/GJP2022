@@ -1,16 +1,16 @@
 ﻿using Jiufen.Audio;
 using UnityEngine;
 
-public class JumpController:MonoBehaviour
+public class JumpController : MonoBehaviour
 {
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] private Animator animator;
 
-    private float fallSpeed;
-    private float jumpSpeed;
+    [SerializeField] private float jumpSpeed;
+
     private bool jumping = false;
 
-    public int jumpState = 0;
+    private int jumpState = 0;
 
     public void Jump()
     {
