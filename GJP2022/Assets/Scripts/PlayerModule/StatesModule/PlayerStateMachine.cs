@@ -149,7 +149,7 @@ public class PlayerStateMachine : CharacterStateMachine
     public async void HasBeenHitDelay()
     {
         hasBeenHit = true;
-        await Task.Delay(1300);
+        await Task.Delay(400);
         hasBeenHit = false;
     }
 

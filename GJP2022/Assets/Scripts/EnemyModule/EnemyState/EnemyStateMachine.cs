@@ -47,7 +47,7 @@ public class EnemyStateMachine : CharacterStateMachine
 
     public void InstantiateProjectile(Vector3 direction)
     {
-        Projectile projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        Projectile projectile = Instantiate(projectilePrefab, transform.position + new Vector3(0, 0.4f, 0), transform.rotation);
         projectile.Init(direction);
     }
 

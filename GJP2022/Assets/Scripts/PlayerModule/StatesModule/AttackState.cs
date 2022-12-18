@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +9,7 @@ public class AttackingState : PlayerStateBase
 {
     #region ----Fields----
     private float timerAttackCooldown;
-    public Queue<bool> queueAttacks = new Queue<bool>();
+    public bool? currentAttack = null;
     public bool hasCombo = false;
 
     private const float stopComboCooldown = 2f;
@@ -39,21 +41,20 @@ public class AttackingState : PlayerStateBase
 
     public override void UpdateState()
     {
-        if (!isAttacking)
-            playerMovementController.MovePlayer();
-        else
-            playerMovementController.StopMovement();
+        playerMovementController.StopMovement();
         playerMovementController.RotateModel();
         AttackQueue();
         ComboCounterTick();
     }
 
+    public int attackCount = 0;
     public override void Attack(bool isStrongAttack)
     {
-        if (queueAttacks.Count < 3 && !hasCombo)
-            queueAttacks.Enqueue(isStrongAttack);
-        if (queueAttacks.Count == 3)
-            hasCombo = true;
+        if (attackCount == 3 || currentAttack.HasValue)
+            return;
+        currentAttack = isStrongAttack;
+        attackCount++;
+        Debug.Log("attack: " + attackCount);
     }
 
     public override void Move(InputAction.CallbackContext ctx)
@@ -69,43 +70,52 @@ public class AttackingState : PlayerStateBase
     {
         if (player.hasBeenHit)
         {
-            EndCombo();
+            player.SetState(new OnGroundState(player));
             return;
         }
 
         if (timerAttackCooldown > 0)
             timerAttackCooldown -= Time.deltaTime;
 
-        if (timerAttackCooldown <= 0)
+        if (timerAttackCooldown <= 0 && !isAttacking)
         {
-            if (queueAttacks.Count > 0)
+            // Attack before time limit
+            if (currentAttack != null)
             {
-                timerAttackCooldown = cooldownAttack;
-                ExecuteAttack(queueAttacks.Dequeue());
-                if (queueAttacks.Count == 0 && hasCombo && !isAttacking)
-                    EndCombo();
-            }
-            else
-                EndCombo();
-        }
-    }
+                ExecuteAttack(currentAttack.Value, (attackExecuting) =>
+                {
+                    if (attackExecuting == 3)
+                        player.SetState(new OnGroundState(player));
+                });
 
-    public void EndCombo()
-    {
-        hasCombo = false;
-        queueAttacks.Clear();
-        player.SetState(new OnGroundState(player));
+                timerAttackCooldown = currentAnimTime / 1000;
+            }
+            // Time limit for continuing combo
+            else
+                player.SetState(new OnGroundState(player));
+        }
     }
     public bool isAttacking = false;
 
-    public async void ExecuteAttack(bool isStrongAttack)
+    public async void ExecuteAttack(bool isStrongAttack, Action<int> onEndAttack)
     {
+        var attackExecuting = attackCount;
         isAttacking = true;
         AttackAnimations(isStrongAttack);
+
+        Debug.Log("time1");
+        await Task.Delay((int)(currentAnimTime * .5f));
+
         characterResources.comboCounter++;
-        await Task.Delay(1300);
+        currentAttack = null;
         DamageEnemy(isStrongAttack);
+
+        Debug.Log("time2");
+        await Task.Delay((int)(currentAnimTime * .5f));
+
+        Debug.Log("time3");
         isAttacking = false;
+        onEndAttack?.Invoke(attackExecuting);
     }
 
     private void DamageEnemy(bool isStrongAttack)
@@ -147,18 +157,20 @@ public class AttackingState : PlayerStateBase
 
     private void AttackAnimations(bool isStrongAttack)
     {
-        int attackAnim = (characterResources.comboCounter % 3) + 1;
-        //if (attackAnim == 1 || previousAttackWasStrong != isStrongAttack)
         player.animator.SetTrigger("Attacking");
+        int animHash = (isStrongAttack ? lightAttackHash : strongAttackHash);
 
         if (previousAttackWasStrong != isStrongAttack)
         {
             previousAttackWasStrong = isStrongAttack;
-            player.animator.SetFloat(isStrongAttack ? lightAttackHash : strongAttackHash, 0);
+            player.animator.SetFloat(animHash, 0);
         }
+        player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackCount);
 
-        player.animator.SetFloat(isStrongAttack ? strongAttackHash : lightAttackHash, attackAnim);
+        string attackName = (isStrongAttack ? "Strong" : "Light") + attackCount;
+        currentAnimTime = (player.animator.runtimeAnimatorController.animationClips.First(animClip => animClip.name.Equals(attackName)).length / 1.5f) * 1000;
     }
+    private float currentAnimTime = -1;
 
     #endregion Player Attack
     #endregion ----Methods----

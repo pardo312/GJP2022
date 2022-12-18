@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 557ace4d995f7d741bb18a7a43a0458a, type: 2}
 --- !u!1001 &20249715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -374,6 +378,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &292229496 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8447082967072642302, guid: 215452926d9dede49897472713e908ce, type: 3}
+  m_PrefabInstance: {fileID: 346067918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &346067918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,7 +584,7 @@ Terrain:
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
   m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
+  m_DrawTreesAndFoliage: 0
   m_ReflectionProbeUsage: 1
   m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_BakeLightProbesForTrees: 1
@@ -651,11 +660,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &437512797 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5764423889941091348, guid: 215452926d9dede49897472713e908ce, type: 3}
-  m_PrefabInstance: {fileID: 346067918}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &455161478
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +687,10 @@ PrefabInstance:
     - target: {fileID: 1415928879512320586, guid: 447314800979fe642955e0466664161b, type: 3}
       propertyPath: m_Name
       value: Minion (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415928879512320586, guid: 447314800979fe642955e0466664161b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1415928879512320595, guid: 447314800979fe642955e0466664161b, type: 3}
       propertyPath: m_RootOrder
@@ -735,51 +743,63 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 437512797}
+    m_TransformParent: {fileID: 292229496}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 968.465
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 968.465
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 968.4647
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.94
+      value: 25.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.760212
+      value: 36.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.6627274
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6508213
+      value: 0.6977368
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.348727
+      value: 0.71486276
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.27646288
+      value: 0.04230166
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.61513364
+      value: 0.018581975
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -52.565
+      value: 84.874
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -6.534
+      value: 106.673
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 104.749
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 37c6dad9291dba244b09f0c3c14ce951, type: 3}
       propertyPath: m_Name
@@ -838,7 +858,7 @@ Terrain:
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
   m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
+  m_DrawTreesAndFoliage: 0
   m_ReflectionProbeUsage: 1
   m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_BakeLightProbesForTrees: 1
@@ -873,6 +893,10 @@ PrefabInstance:
     - target: {fileID: 8236971258163547277, guid: 035b5d89dc834d44da040247348c7083, type: 3}
       propertyPath: m_Name
       value: Prefab_FoamTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236971258163547277, guid: 035b5d89dc834d44da040247348c7083, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8236971258163974317, guid: 035b5d89dc834d44da040247348c7083, type: 3}
       propertyPath: m_RootOrder
@@ -930,6 +954,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -1092,6 +1120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MInionLanz (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5373636765318127689, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
 --- !u!1 &789454187
@@ -1149,6 +1181,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -1263,6 +1299,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MInionLanz
       objectReference: {fileID: 0}
+    - target: {fileID: 5373636765318127689, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
 --- !u!1001 &865219610
@@ -1275,6 +1315,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -1564,6 +1608,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_RockFormation_04
       objectReference: {fileID: 0}
+    - target: {fileID: 2921132140309449108, guid: ca21edac250d713449ce116707447d89, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca21edac250d713449ce116707447d89, type: 3}
 --- !u!1 &938813020
@@ -1684,7 +1732,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970613250}
-  m_LocalRotation: {x: -0, y: 0.000000044029065, z: -0.000000026417439, w: 1}
+  m_LocalRotation: {x: -0.000000059604645, y: 0.000000014470965, z: -0.000000008682578, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1836,6 +1884,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_RockFormation_04 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2921132140309449108, guid: ca21edac250d713449ce116707447d89, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca21edac250d713449ce116707447d89, type: 3}
 --- !u!1001 &1040996550
@@ -1893,6 +1945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_FoamVolumetric (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 429333122227109712, guid: 05c711fdd119cc547b4031fefdcbd817, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05c711fdd119cc547b4031fefdcbd817, type: 3}
 --- !u!1001 &1088002392
@@ -1905,6 +1961,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -1975,6 +2035,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WaterRiver (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
       value: 39
@@ -2044,6 +2108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WaterRiver (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
       value: 34
@@ -2112,6 +2180,10 @@ PrefabInstance:
     - target: {fileID: 2473057495033781582, guid: a11a4906288398248a504cfc6ceca0d7, type: 3}
       propertyPath: m_Name
       value: Prefab_RocksRound_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473057495033781582, guid: a11a4906288398248a504cfc6ceca0d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2473057495033872750, guid: a11a4906288398248a504cfc6ceca0d7, type: 3}
       propertyPath: m_RootOrder
@@ -2288,6 +2360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MInionLanz (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5373636765318127689, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd0215e7ed30fb45935695da57ab9b5, type: 3}
 --- !u!1001 &1228261789
@@ -2300,6 +2376,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -2401,6 +2481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Foam (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3104309226492670533, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3104309226493161061, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -2457,6 +2541,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -2526,6 +2614,10 @@ PrefabInstance:
     - target: {fileID: 6787951649393729316, guid: 86cfc2758dbf6c0408bba77213b26cfd, type: 3}
       propertyPath: m_Name
       value: Prefab_RocksRound_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787951649393729316, guid: 86cfc2758dbf6c0408bba77213b26cfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6787951649393754884, guid: 86cfc2758dbf6c0408bba77213b26cfd, type: 3}
       propertyPath: m_RootOrder
@@ -2632,6 +2724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_WaterfallMain
       objectReference: {fileID: 0}
+    - target: {fileID: 8087146570348667094, guid: 1789e3f75681b0f4caaeb931b5738c84, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1789e3f75681b0f4caaeb931b5738c84, type: 3}
 --- !u!1 &1455421628
@@ -2699,6 +2795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minion (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1415928879512320586, guid: 447314800979fe642955e0466664161b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1415928879512320595, guid: 447314800979fe642955e0466664161b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2755,6 +2855,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -2892,6 +2996,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minion (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1415928879512320586, guid: 447314800979fe642955e0466664161b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1415928879512320595, guid: 447314800979fe642955e0466664161b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2949,6 +3057,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Foam
       objectReference: {fileID: 0}
+    - target: {fileID: 3104309226492670533, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3104309226493161061, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -3005,6 +3117,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -3115,7 +3231,7 @@ Terrain:
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
   m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
+  m_DrawTreesAndFoliage: 0
   m_ReflectionProbeUsage: 1
   m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_BakeLightProbesForTrees: 1
@@ -3150,6 +3266,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
@@ -3266,7 +3386,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3300,7 +3420,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.26693362, y: 0.000000028720947, z: -0.000000007955243, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: 0.000000038793985, z: -0.00000001074531, w: 0.96371496}
   m_LocalPosition: {x: 7.2, y: 12.6, z: -8.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3464,6 +3584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WaterRiver (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
       value: 38
@@ -3577,6 +3701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_FoamVolumetric
       objectReference: {fileID: 0}
+    - target: {fileID: 429333122227109712, guid: 05c711fdd119cc547b4031fefdcbd817, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05c711fdd119cc547b4031fefdcbd817, type: 3}
 --- !u!1001 &1895818329
@@ -3634,6 +3762,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_RockFormation_04 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2921132140309449108, guid: ca21edac250d713449ce116707447d89, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca21edac250d713449ce116707447d89, type: 3}
 --- !u!1001 &1937085511
@@ -3646,6 +3778,10 @@ PrefabInstance:
     - target: {fileID: 3104309226492670533, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
       propertyPath: m_Name
       value: Prefab_Foam (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104309226492670533, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3104309226493161061, guid: 1241a5cb9aff2ac4588e2b413f071c55, type: 3}
       propertyPath: m_RootOrder
@@ -3814,7 +3950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRb: {fileID: 1957955859}
   animator: {fileID: 1507876110}
-  jumpState: 0
+  jumpSpeed: 10
 --- !u!1001 &1971029872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3825,6 +3961,10 @@ PrefabInstance:
     - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_Name
       value: SM_WaterRiver (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049760999353382768, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6049760999353871184, guid: ba1754ab13eeb98428a85de2adf1c526, type: 3}
       propertyPath: m_RootOrder
