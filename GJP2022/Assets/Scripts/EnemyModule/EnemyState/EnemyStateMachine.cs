@@ -14,6 +14,7 @@ public class EnemyStateMachine : CharacterStateMachine
     [SerializeField] private bool isMelee;
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private GameObject muzzlePrefab;
+    [SerializeField] private GameObject smerald;
 
     [Header("Movement")]
     private Seeker seeker;
@@ -60,6 +61,8 @@ public class EnemyStateMachine : CharacterStateMachine
         if (characterResources.health <= 0)
         {
             SetState(new EnemyDisableState(this));
+            Instantiate(smerald).transform.position = transform.position;
+            //Spawn Money
             Destroy(this.gameObject);
         }
     }

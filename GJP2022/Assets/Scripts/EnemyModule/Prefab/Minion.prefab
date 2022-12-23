@@ -293,6 +293,7 @@ MonoBehaviour:
   isMelee: 1
   projectilePrefab: {fileID: 0}
   muzzlePrefab: {fileID: 1056950820860086, guid: b7d6fd0e46482d6498b34962b5fed311, type: 3}
+  smerald: {fileID: 1345583305819818751, guid: 3c655924858d81944b713fb52398f4bc, type: 3}
   enemyStats: {fileID: 11400000, guid: a614e4d3a99f9764f91d1d6d7ffd6e99, type: 2}
 --- !u!1001 &2238812902486501794
 PrefabInstance:
