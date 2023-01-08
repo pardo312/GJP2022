@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Smerald : MonoBehaviour
 {
+    public bool m_shouldRotate = false;
+    public float m_rotateSpeed = .5f;
+    public void OnEnable()
+    {
+        m_shouldRotate = true;
+    }
+
+    public void Update()
+    {
+        if (m_shouldRotate)
+            transform.Rotate(new Vector3(0, m_rotateSpeed, 0));
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

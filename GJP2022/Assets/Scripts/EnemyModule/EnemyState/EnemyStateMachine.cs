@@ -61,7 +61,7 @@ public class EnemyStateMachine : CharacterStateMachine
         if (CharacterResources.health <= 0)
         {
             SetState(new EnemyDisableState(this));
-            Instantiate(smerald).transform.position = transform.position;
+            Instantiate(smerald).transform.position = transform.position + (Vector3.up * .6f);
             //Spawn Money
             Destroy(this.gameObject);
         }
