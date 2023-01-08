@@ -48,7 +48,7 @@ public class EnemyStateMachine : CharacterStateMachine
 
     public void InstantiateProjectile(Vector3 direction)
     {
-        Projectile projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        Projectile projectile = Instantiate(projectilePrefab, transform.position + new Vector3(0, 0.4f, 0), transform.rotation);
         projectile.Init(direction);
     }
 
@@ -58,7 +58,7 @@ public class EnemyStateMachine : CharacterStateMachine
         AudioManager.PlayAudio("SFX_HIT_2");
         Destroy(Instantiate(muzzlePrefab, this.transform.position, this.transform.rotation), 5);
 
-        if (characterResources.health <= 0)
+        if (CharacterResources.health <= 0)
         {
             SetState(new EnemyDisableState(this));
             Instantiate(smerald).transform.position = transform.position;
