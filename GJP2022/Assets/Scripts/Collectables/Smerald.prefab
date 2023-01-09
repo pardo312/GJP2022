@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2267657513337121572}
   - component: {fileID: 2301979735282161301}
-  - component: {fileID: 1535581885001254138}
   - component: {fileID: 2999362638695196592}
   m_Layer: 0
   m_Name: Collider
@@ -46,20 +45,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1535581885001254138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743332750868732042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa3bf875a3e35d41a8450851777cf57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_shouldRotate: 0
-  m_rotateSpeed: 4
 --- !u!54 &2999362638695196592
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -85,6 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4907068622849328617}
+  - component: {fileID: 1098386177782662051}
   m_Layer: 0
   m_Name: Smerald
   m_TagString: Untagged
@@ -108,6 +94,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1098386177782662051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345583305819818751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa3bf875a3e35d41a8450851777cf57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_shouldRotate: 0
+  m_rotateSpeed: 2
+  m_modelTranform: {fileID: 6955972132889146}
 --- !u!1 &5011219581819039590
 GameObject:
   m_ObjectHideFlags: 0
