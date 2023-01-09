@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dithering
-  m_Shader: {fileID: -6465566751694194690, guid: 5fd647f5ece4cf446821b55702c3f047, type: 3}
+  m_Name: DitheringBaseTree
+  m_Shader: {fileID: -6465566751694194690, guid: 25d942eebae50c642ad54ab3f8f4ee1f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -48,6 +48,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ActivateDither: 1
+    - _ClipThreshold: 1
+    - _DitherOffset: 1.22
+    - _DitherRange: 0.14
     - _DitherSize: 1
     - _MetallicStrength: 0.68
     - _NormalStrength: 1

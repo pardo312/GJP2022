@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DitheringLeaves
-  m_Shader: {fileID: -6465566751694194690, guid: 5fd647f5ece4cf446821b55702c3f047, type: 3}
+  m_Name: DitheringTent
+  m_Shader: {fileID: -6465566751694194690, guid: 25d942eebae50c642ad54ab3f8f4ee1f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlbedoTexture:
-        m_Texture: {fileID: 2800000, guid: 0110f8674e98a8c45a6e939882259ba8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63c1d55ea5a201c49aea1b8312fc2bea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
@@ -28,11 +28,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 991af4cdf346882468c621c23a1dafcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 401913f58b0476e46bf4bb9f7a245bc3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -48,12 +48,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ActivateDither: 1
+    - _ClipThreshold: 1
+    - _DitherOffset: 0.33
+    - _DitherRange: 0.08
     - _DitherSize: 1
-    - _MetallicStrength: 0
+    - _MetallicStrength: 0.68
     - _NormalStrength: 1
     - _Opacity: 1
-    - _SmoothnessStrength: 0
+    - _SmoothnessStrength: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.69411767, g: 0.7254902, b: 0.039215688, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

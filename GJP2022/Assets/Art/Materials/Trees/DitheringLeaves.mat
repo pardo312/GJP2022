@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DitheringLeaves
+  m_Shader: {fileID: -6465566751694194690, guid: e65ba86bb2725ae46bb9f578b29a6b0c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoTexture:
+        m_Texture: {fileID: 2800000, guid: 0110f8674e98a8c45a6e939882259ba8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Smoothness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_b1707c6bc3ec4fb4915416a6703ac686: 0
+    - _ActivateDither: 1
+    - _ClipThreshold: 1
+    - _DitherOffset: 2.14
+    - _DitherRange: 0.2
+    - _DitherSize: 1
+    - _MetallicStrength: 0
+    - _NormalStrength: 1
+    - _Opacity: 1
+    - _SmoothnessStrength: 0
+    - _WindSpeed: 1.2
+    - _WindStrength: 0.2
+    m_Colors:
+    - _AlbedoColor: {r: 0.69411767, g: 0.7254902, b: 0.039215688, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _WindDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _WindDirection_1: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
