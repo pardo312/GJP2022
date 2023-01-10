@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18992792}
   m_Layer: 0
-  m_Name: ZONE 1
+  m_Name: ZONE 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1868,7 +1868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515238979}
   m_Layer: 0
-  m_Name: ZONE 2
+  m_Name: ZONE 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2409,7 +2409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 650729457}
   m_Layer: 0
-  m_Name: ZONE 3
+  m_Name: ZONE 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9637,18 +9637,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2121548533864180642, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
     - target: {fileID: 4348075099582600628, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
       propertyPath: m_Name
       value: ZoneBarrier
       objectReference: {fileID: 0}
     - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
       propertyPath: m_timeFade
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
       propertyPath: m_talismanNeeded
       value: 
       objectReference: {fileID: 9079365539550500957}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 18992791}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366002864884160995, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: m_onZoneUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927098900917774463, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b781fb3254fddd4faf92bf1797b2869, type: 3}
 --- !u!4 &9218606345667695281 stripped
